@@ -1,99 +1,64 @@
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class KisoKadai3 {
+	public static void main(String[] args) throws IOException {
+		{
+			InputStreamReader is = new InputStreamReader(System.in);
+			BufferedReader br = new BufferedReader(is);
 
-	public static void main(String[] args) {
-		BufferedReader br = new BufferedReader(System.in);
-		String str = "";
-		int select = 0;
+			System.out.println("ファイル名を指定してください");
+			System.out.println("例：text ※テキスト形式でファイルを作成します。");
 
-		try {
-			System.out.println("��̂悤�Ƀt�@�C���������ĉ�����");
-			System.out.print("�t�@�C����:C:/Users//internous//test.txt");
-			str = br.readLine();
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		File file = new File(str);
-		File dir = new File(file.getParent());
-		if (!dir.exists()) {
-			System.out.println("���");
-			dir.mkdir();
-		} else if (dir.exists()) {
-			System.out.println("���łɂ���");
-		}
-		if (file.exists()) {
-			System.out.println("���łɂ���");
-		} else {
-			System.out.println("�쐬");
+			String str = br.readLine();
+			File file = new File(str);
 
+			File newfile = new File(file + ".txt");
+		
 			try {
-				file.createNewFile();
+				if (newfile.createNewFile()) {
+					System.out.println("ファイルの作成に成功しました。");
+					System.out.println("ファイルに書き込みを行う場合"
+							+ "【1】　追記する場合【2】　参照する場合【3】　終了する場合【4】を押してください。");
+				} else {
+					System.out.println("既にそのファイルは存在します。");
+					System.out.println("ファイルに書き込みを行う場合"
+							+ "【1】　追記する場合【2】　参照する場合【3】　終了する場合【4】を押してください。");
+					}
+				
 			} catch (IOException e) {
-				e.printStackTrace();
+				System.out.println("例外が発生しました。再実行してください。");
+				System.out.println(e);
+			}
+			//コマンド（数字）選択した後の動作
+			String key = br.readLine();
+			
+			switch (key) {
+			case "1"://書き込みを選択した場合。
+				try{
+					  File file2 = new File(newfile+".txt");
+					  FileWriter filewriter = new FileWriter(file2);
+					  filewriter.write(br.readLine());
+					  filewriter.close();
+					}catch(IOException e){
+					  System.out.println(e);
+					}
+					
+			case "2"://既存ファイルへの追記を選択した場合。
+				try{
+					  File file3 = new File(newfile+".txt");
+					  FileWriter filewriter = new FileWriter(file3,true);
+					  filewriter.write(br.readLine());
+					  filewriter.close();
+					}catch(IOException e){
+					  System.out.println(e);
+					}
+						
+			case "3"://参照するを選択した場合。	
+				
+			case "5"://終了するを選択した場合。	
+				break;
 			}
 		}
-		boolean flag = true;
-		while (flag) {
-			System.out.println("�t�@�C���̍�Ƃ�I�����Ă�������");
-			System.out.println("1:�ǂݎ��@2�F�������@3�F�I��");
-
-			try {
-				slcm = Integer.parseInt(br.readLine());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-			switch (slcm) {
-			case 1:
-				try {
-					FileReader filereader = new FileReader(file);
-					int ch;
-
-					while ((ch = filereader.read()) != -1) {
-						System.out.print((char) ch);
-					}
-					filereader.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				break;
-			case 2:
-				int slcw = 0;
-				System.out.println("�������ݕ��@��I�����Ă�������\n1:�ǋL�@2:�㏑��");
-				try {
-					slcw = Integer.parseInt((br.readLine()));
-					System.out.print("�L��: ");
-					if (slcw == 1) {
-						FileWriter fwt = new FileWriter(file, true);
-						String strfwt = "";
-						strfwt = br.readLine();
-						fwt.write(strfwt + "\r\n");
-						fwt.close();
-					} else if (slcw == 2) {
-						FileWriter fwf = new FileWriter(file, false);
-						String strfwf = "";
-						strfwf = br.readLine();
-						fwf.write(strfwf + "\r\n");
-						fwf.close();
-					}
-				} catch (IOException e) {
-					System.out.println(e);
-
-				}
-				break;
-			case 3:
-				System.out.println("�����l�ł���");
-				flag = false;
-			default:
-				System.out.println("1~3�ŋL�����Ă�������");
-				break;
-			}
+		
 		}
 	}
-}
