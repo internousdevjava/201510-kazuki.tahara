@@ -23,6 +23,7 @@ public class KisoKadai3 {
 			} catch (IOException e) {
 				System.out.println("例外が発生しました。再実行してください。");
 				System.out.println(e);
+
 			}
 
 			int key = 0;
@@ -42,8 +43,8 @@ public class KisoKadai3 {
 						System.out.println(e);
 					}
 					break;
-                       //----------------------------------------------------------------
-					
+				// ----------------------------------------------------------------
+
 				case 2:// 既存ファイルへの追記を選択した場合--------------------------------------
 					try {
 						// File file3 = new File(file+".txt");
@@ -54,14 +55,22 @@ public class KisoKadai3 {
 						System.out.println(e);
 					}
 					break;
-                       //---------------------------------------------------------------
-					
+				// ---------------------------------------------------------------
+
 				case 3:// 参照するを選択した場合---------------------------------------------
-try {
-	
-} catch (Exception e) {
-	
-}
+					try {
+						FileReader fileReader = new FileReader(file);
+						int ch = fileReader.read();
+						while (ch != -1) {
+							System.out.println((char) ch);
+
+							ch = fileReader.read();
+						}
+
+					} catch (Exception e) {
+						System.out.println(e);
+
+					}
 				case 4:// 終了するを選択した場合---------------------------------------------
 					break;
 				default:
