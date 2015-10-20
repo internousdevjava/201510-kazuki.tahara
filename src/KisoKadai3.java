@@ -31,7 +31,11 @@ public class KisoKadai3 {
 				System.out.println("下記の中から行う作業の数字を選択してください");
 				System.out.println("１：上書きを行う場合　２：追記する場合　３：参照する場合　４：終了する場合");
 				// コマンド（数字）選択した後の動作
-				key = Integer.parseInt(br.readLine());
+				try{
+					key = Integer.parseInt(br.readLine());
+				}catch(Exception e){
+					System.out.println("エラーです。");
+				}
 
 				switch (key) {
 				case 1:// 書き込みを選択した場合---------------------------------------------
@@ -56,10 +60,10 @@ public class KisoKadai3 {
 						filewriter.write(br.readLine() + "\r\n");
 						filewriter.close();
 						System.out.println("追記が完了しました。");
-						System.out.println("正しく追記が出来ていません。");
+						
 					} catch (IOException e) {
 						System.out.println(e);
-						
+						System.out.println("正しく追記が出来ていません。");
 					}
 					break;
 				// ---------------------------------------------------------------
